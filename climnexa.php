@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: CityWeather
+ * Plugin Name: Climnexa - Weather Information
  * Description: Display current weather for cities worldwide using the OpenWeather API.
  * Version: 1.0.0
  * Requires at least: 6.0
@@ -8,7 +8,7 @@
  * Author: Monselj1
  * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: cityweather
+ * Text Domain: climnexa
  * Domain Path: /languages
  */
 
@@ -41,7 +41,6 @@ function cwwp_activate_plugin() {
 }
 register_activation_hook( CWWP_FILE, 'cwwp_activate_plugin' );
 
-
 /**
  * Enqueue frontend assets only when the shortcode is used.
  */
@@ -50,14 +49,14 @@ function cwwp_enqueue_frontend_assets() {
 	$js_path  = CWWP_PATH . 'assets/js/script.js';
 
 	wp_enqueue_style(
-		'cityweather',
+		'climnexa',
 		CWWP_URL . 'assets/css/style.css',
 		array(),
 		file_exists( $css_path ) ? filemtime( $css_path ) : CWWP_VERSION
 	);
 
 	wp_enqueue_script(
-		'cityweather',
+		'climnexa',
 		CWWP_URL . 'assets/js/script.js',
 		array(),
 		file_exists( $js_path ) ? filemtime( $js_path ) : CWWP_VERSION,
@@ -65,29 +64,29 @@ function cwwp_enqueue_frontend_assets() {
 	);
 
 	wp_localize_script(
-		'cityweather',
+		'climnexa',
 		'cityWeather',
 		array(
 			'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
 			'nonce'       => wp_create_nonce( 'cwwp_weather_nonce' ),
 			'iconBaseUrl' => trailingslashit( CWWP_URL . 'assets/icons' ),
 			'i18n'        => array(
-				'loading'          => __( 'Loading weather...', 'cityweather' ),
-				'searching'        => __( 'Searching...', 'cityweather' ),
-				'update'           => __( 'Update weather', 'cityweather' ),
-				'connection'       => __( 'Connection error. Please try again.', 'cityweather' ),
-				'invalid'          => __( 'Enter a city and a valid two-letter country code.', 'cityweather' ),
-				'feelsLike'        => __( 'Feels like', 'cityweather' ),
-				'humidity'         => __( 'Humidity', 'cityweather' ),
-				'wind'             => __( 'Wind', 'cityweather' ),
-				'pressure'         => __( 'Pressure', 'cityweather' ),
-				'windDirection'    => __( 'Wind direction', 'cityweather' ),
-				'updated'          => __( 'Updated', 'cityweather' ),
-				'notAvailable'     => __( 'N/A', 'cityweather' ),
-				'celsius'          => __( 'Celsius', 'cityweather' ),
-				'fahrenheit'       => __( 'Fahrenheit', 'cityweather' ),
-				'temperatureUnit'  => __( 'Temperature unit', 'cityweather' ),
-				'currentWeather'   => __( 'Current weather', 'cityweather' ),
+				'loading'          => __( 'Loading weather...', 'climnexa' ),
+				'searching'        => __( 'Searching...', 'climnexa' ),
+				'update'           => __( 'Update weather', 'climnexa' ),
+				'connection'       => __( 'Connection error. Please try again.', 'climnexa' ),
+				'invalid'          => __( 'Enter a city and a valid two-letter country code.', 'climnexa' ),
+				'feelsLike'        => __( 'Feels like', 'climnexa' ),
+				'humidity'         => __( 'Humidity', 'climnexa' ),
+				'wind'             => __( 'Wind', 'climnexa' ),
+				'pressure'         => __( 'Pressure', 'climnexa' ),
+				'windDirection'    => __( 'Wind direction', 'climnexa' ),
+				'updated'          => __( 'Updated', 'climnexa' ),
+				'notAvailable'     => __( 'N/A', 'climnexa' ),
+				'celsius'          => __( 'Celsius', 'climnexa' ),
+				'fahrenheit'       => __( 'Fahrenheit', 'climnexa' ),
+				'temperatureUnit'  => __( 'Temperature unit', 'climnexa' ),
+				'currentWeather'   => __( 'Current weather', 'climnexa' ),
 			),
 		)
 	);
@@ -109,13 +108,13 @@ function cwwp_weather_shortcode() {
 		<form class="cwwp-form" data-cwwp-form="<?php echo esc_attr( $instance_id ); ?>">
 			<div class="cwwp-field">
 				<label for="<?php echo esc_attr( $instance_id ); ?>-city">
-					<?php esc_html_e( 'City', 'cityweather' ); ?>
+					<?php esc_html_e( 'City', 'climnexa' ); ?>
 				</label>
 				<input
 					type="text"
 					id="<?php echo esc_attr( $instance_id ); ?>-city"
 					name="city"
-					placeholder="<?php echo esc_attr__( 'e.g. London', 'cityweather' ); ?>"
+					placeholder="<?php echo esc_attr__( 'e.g. London', 'climnexa' ); ?>"
 					autocomplete="address-level2"
 					required
 				>
@@ -123,13 +122,13 @@ function cwwp_weather_shortcode() {
 
 			<div class="cwwp-field">
 				<label for="<?php echo esc_attr( $instance_id ); ?>-country">
-					<?php esc_html_e( 'Country code (2 letters)', 'cityweather' ); ?>
+					<?php esc_html_e( 'Country code (2 letters)', 'climnexa' ); ?>
 				</label>
 				<input
 					type="text"
 					id="<?php echo esc_attr( $instance_id ); ?>-country"
 					name="country"
-					placeholder="<?php echo esc_attr__( 'e.g. GB', 'cityweather' ); ?>"
+					placeholder="<?php echo esc_attr__( 'e.g. GB', 'climnexa' ); ?>"
 					maxlength="2"
 					minlength="2"
 					pattern="[A-Za-z]{2}"
@@ -139,7 +138,7 @@ function cwwp_weather_shortcode() {
 			</div>
 
 			<button type="submit">
-				<?php esc_html_e( 'Get weather', 'cityweather' ); ?>
+				<?php esc_html_e( 'Get weather', 'climnexa' ); ?>
 			</button>
 		</form>
 
@@ -149,7 +148,7 @@ function cwwp_weather_shortcode() {
 
 	return ob_get_clean();
 }
-add_shortcode( 'cityweather', 'cwwp_weather_shortcode' );
+add_shortcode( 'climnexa', 'cwwp_weather_shortcode' );
 
 /**
  * Add suggested privacy policy text.
@@ -158,13 +157,13 @@ function cwwp_add_privacy_policy_content() {
 	if ( function_exists( 'wp_add_privacy_policy_content' ) ) {
 		$content = '<p>' .
 			esc_html__(
-				'CityWeather sends the city and country entered by a visitor to the website server. The server requests current weather data from OpenWeather using the site owner\'s API key. The plugin temporarily stores weather and geocoding responses in WordPress transients to reduce repeated API requests. A temporary, pseudonymized value derived from the visitor\'s IP address may be used for rate limiting. Review OpenWeather\'s privacy policy for information about its processing.',
-				'cityweather'
+				'Climnexa sends the city and country entered by a visitor to the website server. The server requests current weather data from OpenWeather using the site owner\'s API key. The plugin temporarily stores weather and geocoding responses in WordPress transients to reduce repeated API requests. A temporary, pseudonymized value derived from the visitor\'s IP address may be used for rate limiting. Review OpenWeather\'s privacy policy for information about its processing.',
+				'climnexa'
 			) .
 			' <a href="https://openweather.co.uk/privacy-policy" target="_blank" rel="noopener noreferrer">OpenWeather privacy policy</a>.</p>';
 
 		wp_add_privacy_policy_content(
-			__( 'CityWeather', 'cityweather' ),
+			__( 'Climnexa', 'climnexa' ),
 			wp_kses_post( $content )
 		);
 	}

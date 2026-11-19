@@ -8,10 +8,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function cwwp_add_settings_page() {
 	add_options_page(
-		__( 'CityWeather Settings', 'cityweather' ),
-		__( 'CityWeather', 'cityweather' ),
+		__( 'Climnexa Settings', 'climnexa' ),
+		__( 'Climnexa', 'climnexa' ),
 		'manage_options',
-		'cityweather',
+		'climnexa',
 		'cwwp_render_settings_page'
 	);
 }
@@ -49,16 +49,16 @@ function cwwp_register_settings() {
 
 	add_settings_section(
 		'cwwp_api_section',
-		__( 'OpenWeather API settings', 'cityweather' ),
+		__( 'OpenWeather API settings', 'climnexa' ),
 		'cwwp_render_api_section_description',
-		'cityweather'
+		'climnexa'
 	);
 
 	add_settings_field(
 		'cwwp_api_key',
-		__( 'API key', 'cityweather' ),
+		__( 'API key', 'climnexa' ),
 		'cwwp_render_api_key_field',
-		'cityweather',
+		'climnexa',
 		'cwwp_api_section'
 	);
 }
@@ -68,7 +68,7 @@ add_action( 'admin_init', 'cwwp_register_settings' );
  * Render the API section description.
  */
 function cwwp_render_api_section_description() {
-	echo '<p>' . esc_html__( 'Add your OpenWeather API key to enable weather searches.', 'cityweather' ) . '</p>';
+	echo '<p>' . esc_html__( 'Add your OpenWeather API key to enable weather searches.', 'climnexa' ) . '</p>';
 }
 
 
@@ -85,19 +85,19 @@ function cwwp_render_api_key_field() {
 		value=""
 		class="regular-text"
 		autocomplete="new-password"
-		placeholder="<?php echo esc_attr( $has_key ? __( 'API key saved. Enter a new key to replace it.', 'cityweather' ) : __( 'Enter your OpenWeather API key', 'cityweather' ) ); ?>"
+		placeholder="<?php echo esc_attr( $has_key ? __( 'API key saved. Enter a new key to replace it.', 'climnexa' ) : __( 'Enter your OpenWeather API key', 'climnexa' ) ); ?>"
 	>
 	<p class="description">
 		<?php
 		echo esc_html(
 			$has_key
-				? __( 'A key is currently saved. Leave this field blank to keep it unchanged.', 'cityweather' )
-				: __( 'Enter your OpenWeather API key to enable weather searches.', 'cityweather' )
+				? __( 'A key is currently saved. Leave this field blank to keep it unchanged.', 'climnexa' )
+				: __( 'Enter your OpenWeather API key to enable weather searches.', 'climnexa' )
 		);
 		?>
 	</p>
 	<p class="description">
-		<?php esc_html_e( 'Your API key is stored on your WordPress site and is never exposed to visitors in the browser.', 'cityweather' ); ?>
+		<?php esc_html_e( 'Your API key is stored on your WordPress site and is never exposed to visitors in the browser.', 'climnexa' ); ?>
 	</p>
 	<?php
 }
@@ -111,53 +111,53 @@ function cwwp_render_settings_page() {
 	}
 	?>
 	<div class="wrap">
-		<h1><?php esc_html_e( 'CityWeather', 'cityweather' ); ?></h1>
+		<h1><?php esc_html_e( 'Climnexa', 'climnexa' ); ?></h1>
 
 		<form method="post" action="options.php">
 			<?php
 			settings_fields( 'cwwp_settings_group' );
-			do_settings_sections( 'cityweather' );
-			submit_button( __( 'Save settings', 'cityweather' ) );
+			do_settings_sections( 'climnexa' );
+			submit_button( __( 'Save settings', 'climnexa' ) );
 			?>
 		</form>
 
 		<hr>
 
-		<h2><?php esc_html_e( 'How to get an OpenWeather API key', 'cityweather' ); ?></h2>
+		<h2><?php esc_html_e( 'How to get an OpenWeather API key', 'climnexa' ); ?></h2>
 		<ol>
 			<li>
-				<?php esc_html_e( 'Create an account on', 'cityweather' ); ?>
+				<?php esc_html_e( 'Create an account on', 'climnexa' ); ?>
 				<a href="https://home.openweathermap.org/users/sign_up" target="_blank" rel="noopener noreferrer">
-					<?php esc_html_e( 'OpenWeather', 'cityweather' ); ?>
+					<?php esc_html_e( 'OpenWeather', 'climnexa' ); ?>
 				</a>.
 			</li>
 			<li>
-				<?php esc_html_e( 'If you already have an account,', 'cityweather' ); ?>
+				<?php esc_html_e( 'If you already have an account,', 'climnexa' ); ?>
 				<a href="https://home.openweathermap.org/users/sign_in" target="_blank" rel="noopener noreferrer">
-					<?php esc_html_e( 'sign in here', 'cityweather' ); ?>
+					<?php esc_html_e( 'sign in here', 'climnexa' ); ?>
 				</a>.
 			</li>
 			<li>
-				<?php esc_html_e( 'Open the', 'cityweather' ); ?>
+				<?php esc_html_e( 'Open the', 'climnexa' ); ?>
 				<a href="https://home.openweathermap.org/api_keys" target="_blank" rel="noopener noreferrer">
-					<?php esc_html_e( 'API keys page', 'cityweather' ); ?>
+					<?php esc_html_e( 'API keys page', 'climnexa' ); ?>
 				</a>
-				<?php esc_html_e( 'to view or generate an API key.', 'cityweather' ); ?>
+				<?php esc_html_e( 'to view or generate an API key.', 'climnexa' ); ?>
 			</li>
 			<li>
-				<?php esc_html_e( 'Paste your key into the field above and click Save settings.', 'cityweather' ); ?>
+				<?php esc_html_e( 'Paste your key into the field above and click Save settings.', 'climnexa' ); ?>
 			</li>
 		</ol>
 		<p>
-			<strong><?php esc_html_e( 'Note:', 'cityweather' ); ?></strong>
-			<?php esc_html_e( 'A newly created API key may take some time to become active. Check your OpenWeather account if requests continue to fail.', 'cityweather' ); ?>
+			<strong><?php esc_html_e( 'Note:', 'climnexa' ); ?></strong>
+			<?php esc_html_e( 'A newly created API key may take some time to become active. Check your OpenWeather account if requests continue to fail.', 'climnexa' ); ?>
 		</p>
 
 		<hr>
 
-		<h2><?php esc_html_e( 'Display the weather form', 'cityweather' ); ?></h2>
-		<p><?php esc_html_e( 'Add this shortcode to any page or post using the Shortcode block:', 'cityweather' ); ?></p>
-		<p><code>[cityweather]</code></p>
+		<h2><?php esc_html_e( 'Display the weather form', 'climnexa' ); ?></h2>
+		<p><?php esc_html_e( 'Add this shortcode to any page or post using the Shortcode block:', 'climnexa' ); ?></p>
+		<p><code>[climnexa]</code></p>
 	</div>
 	<?php
 }

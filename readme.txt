@@ -1,4 +1,4 @@
-=== CityWeather ===
+=== Climnexa - Weather Information ===
 Contributors: Monselj1
 Tags: weather, weather-widget, openweather, current-weather
 Requires at least: 6.0
@@ -12,7 +12,7 @@ Display current weather for cities worldwide using the OpenWeather API.
 
 == Description ==
 
-CityWeather adds a responsive weather search form to your WordPress site. Visitors can search for current weather conditions by entering a city name and a two-letter country code.
+Display current weather conditions for cities worldwide on your WordPress site using data from the OpenWeather API.
 
 Features:
 * Current temperature with Celsius and Fahrenheit selection.
@@ -28,12 +28,12 @@ The plugin requires an API key from OpenWeather. Each site owner must provide th
 
 == Installation ==
 
-1. Upload the `cityweather` folder to the `/wp-content/plugins/` directory, or install the ZIP through the WordPress Plugins screen.
+1. Upload the `Climnexa` folder to the `/wp-content/plugins/` directory, or install the ZIP through the WordPress Plugins screen.
 2. Activate CityWeather.
 3. Create an account at https://home.openweathermap.org/users/sign_up.
 4. Generate or copy an API key at https://home.openweathermap.org/api_keys.
-5. Go to Settings > CityWeather and save your API key.
-6. Add the `[cityweather]` shortcode to a page or post using the Shortcode block.
+5. Go to Settings > Climnexa and save your API key.
+6. Add the `[climnexa]` shortcode to a page or post using the Shortcode block.
 
 == Frequently Asked Questions ==
 
@@ -43,7 +43,7 @@ Yes. You must create an OpenWeather account and enter your own API key in the pl
 
 = Which shortcode should I use? =
 
-Use `[cityweather]`.
+Use `[climnexa]`.
 
 = Can visitors choose between Celsius and Fahrenheit? =
 
@@ -61,7 +61,9 @@ No. Weather requests are sent from your WordPress server. The API key is not inc
 
 When a visitor submits a weather search, the city and country code are sent to the site's server and then to OpenWeather to retrieve weather data. The plugin temporarily caches geocoding results and current weather responses in WordPress transients.
 
-A temporary anonymized IP-derived value is used for basic request rate limiting. This value is stored in a short-lived WordPress transient.
+A temporary pseudonymized value derived from the visitor's IP address is used for basic request rate limiting. This value is stored in a short-lived WordPress transient.
+
+Climnexa is an independent plugin and is not affiliated with or endorsed by OpenWeather.
 
 OpenWeather is a third-party service. Its processing is subject to its own terms and privacy policy:
 https://openweather.co.uk/privacy-policy

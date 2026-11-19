@@ -22,7 +22,7 @@ function cwwp_api_request( $url ) {
 	if ( is_wp_error( $response ) ) {
 		return new WP_Error(
 			'cwwp_connection_error',
-			__( 'Could not connect to OpenWeather. Please try again later.', 'cityweather' )
+			__( 'Could not connect to OpenWeather. Please try again later.', 'climnexa' )
 		);
 	}
 
@@ -31,10 +31,10 @@ function cwwp_api_request( $url ) {
 	$data        = json_decode( $body, true );
 
 	if ( 200 !== $status_code ) {
-		$message = __( 'OpenWeather could not complete the request. Check your API key and account status.', 'cityweather' );
+		$message = __( 'OpenWeather could not complete the request. Check your API key and account status.', 'climnexa' );
 
 		if ( 401 === $status_code ) {
-			$message = __( 'The OpenWeather API key was not accepted. Check the key in plugin settings.', 'cityweather' );
+			$message = __( 'The OpenWeather API key was not accepted. Check the key in plugin settings.', 'climnexa' );
 		}
 
 		return new WP_Error(
@@ -47,7 +47,7 @@ function cwwp_api_request( $url ) {
 	if ( JSON_ERROR_NONE !== json_last_error() || ! is_array( $data ) ) {
 		return new WP_Error(
 			'cwwp_invalid_response',
-			__( 'OpenWeather returned an invalid response.', 'cityweather' )
+			__( 'OpenWeather returned an invalid response.', 'climnexa' )
 		);
 	}
 
@@ -67,7 +67,7 @@ function cwwp_get_coordinates( $city, $country ) {
 	if ( '' === $api_key ) {
 		return new WP_Error(
 			'cwwp_missing_api_key',
-			__( 'The site administrator needs to add an OpenWeather API key in Settings > CityWeather.', 'cityweather' )
+			__( 'The site administrator needs to add an OpenWeather API key in Settings > Climnexa.', 'climnexa' )
 		);
 	}
 
@@ -81,7 +81,7 @@ function cwwp_get_coordinates( $city, $country ) {
 	) {
 		return new WP_Error(
 			'cwwp_invalid_location',
-			__( 'Enter a valid city name and a two-letter country code.', 'cityweather' )
+			__( 'Enter a valid city name and a two-letter country code.', 'climnexa' )
 		);
 	}
 
@@ -136,7 +136,7 @@ function cwwp_get_coordinates( $city, $country ) {
 	) {
 		return new WP_Error(
 			'cwwp_city_not_found',
-			__( 'City not found. Check the city name and country code.', 'cityweather' )
+			__( 'City not found. Check the city name and country code.', 'climnexa' )
 		);
 	}
 
@@ -165,7 +165,7 @@ function cwwp_get_current_weather( $city, $country ) {
 	if ( '' === $api_key ) {
 		return new WP_Error(
 			'cwwp_missing_api_key',
-			__( 'The site administrator needs to add an OpenWeather API key in Settings > CityWeather.', 'cityweather' )
+			__( 'The site administrator needs to add an OpenWeather API key in Settings > Climnexa.', 'climnexa' )
 		);
 	}
 
@@ -230,7 +230,7 @@ function cwwp_get_current_weather( $city, $country ) {
 	) {
 		return new WP_Error(
 			'cwwp_incomplete_weather',
-			__( 'The weather data received from OpenWeather was incomplete.', 'cityweather' )
+			__( 'The weather data received from OpenWeather was incomplete.', 'climnexa' )
 		);
 	}
 
@@ -250,7 +250,7 @@ function cwwp_check_rate_limit() {
 	if ( empty( $_SERVER['REMOTE_ADDR'] ) ) {
 		return new WP_Error(
 			'cwwp_rate_limit_unavailable',
-			__( 'The request could not be verified. Please try again.', 'cityweather' )
+			__( 'The request could not be verified. Please try again.', 'climnexa' )
 		);
 	}
 
@@ -259,7 +259,7 @@ function cwwp_check_rate_limit() {
 	if ( ! filter_var( $ip, FILTER_VALIDATE_IP ) ) {
 		return new WP_Error(
 			'cwwp_rate_limit_unavailable',
-			__( 'The request could not be verified. Please try again.', 'cityweather' )
+			__( 'The request could not be verified. Please try again.', 'climnexa' )
 		);
 	}
 
@@ -271,7 +271,7 @@ function cwwp_check_rate_limit() {
 	if ( $count >= 10 ) {
 		return new WP_Error(
 			'cwwp_rate_limit',
-			__( 'Too many requests. Please wait a few minutes and try again.', 'cityweather' )
+			__( 'Too many requests. Please wait a few minutes and try again.', 'climnexa' )
 		);
 	}
 
@@ -320,7 +320,7 @@ function cwwp_ajax_get_weather() {
 	) {
 		wp_send_json_error(
 			array(
-				'message' => __( 'Enter a valid city name and a two-letter country code.', 'cityweather' ),
+				'message' => __( 'Enter a valid city name and a two-letter country code.', 'climnexa' ),
 			),
 			400
 		);

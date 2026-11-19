@@ -1,8 +1,8 @@
-# CityWeather
+# Climnexa
 
 A lightweight WordPress plugin that displays current weather conditions for cities worldwide using the OpenWeather API.
 
-CityWeather provides a clean, responsive weather display that allows visitors to search for a city and view its current weather information.
+Climnexa provides a clean, responsive weather display that allows visitors to search for a city and view its current weather information.
 
 ## Features
 
@@ -23,14 +23,14 @@ CityWeather provides a clean, responsive weather display that allows visitors to
 ## Installation
 
 1. Download or clone this repository.
-2. Upload the `cityweather` folder to your WordPress installation's `wp-content/plugins/` directory.
-3. Activate CityWeather from the WordPress Plugins menu.
+2. Upload the `climnexa` folder to your WordPress installation's `wp-content/plugins/` directory.
+3. Activate Climnexa from the WordPress Plugins menu.
 4. Go to the plugin settings page.
 5. Enter your OpenWeather API key and save the settings.
 
 ## OpenWeather API Setup
 
-CityWeather requires an API key from OpenWeather to retrieve weather information.
+Climnexa requires an API key from OpenWeather to retrieve weather information.
 
 1. Visit [OpenWeather](https://openweathermap.org/).
 2. Create an account or sign in.
@@ -45,13 +45,13 @@ For more information, visit the [OpenWeather API documentation](https://openweat
 
 After activating the plugin and configuring your API key, add the following shortcode to any WordPress page or post:
 
-`[cityweather]`
+`[climnexa]`
 
 Visitors will be able to enter a city and country to retrieve current weather conditions.
 
 ## License
 
-CityWeather is licensed under the GNU General Public License v2 or later (GPL-2.0-or-later).
+Climnexa is licensed under the GNU General Public License v2 or later (GPL-2.0-or-later).
 
 See [LICENSE.txt](LICENSE.txt) for the full license.
 
