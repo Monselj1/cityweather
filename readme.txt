@@ -24,12 +24,12 @@ Features:
 * Short-lived caching to reduce repeated API requests.
 * Basic request rate limiting.
 
-The plugin requires an API key from OpenWeather. Each site owner must provide their own key in Settings > CityWeather.
+The plugin requires an API key from OpenWeather. Each site owner must provide their own key in Settings > Climnexa.
 
 == Installation ==
 
-1. Upload the `Climnexa` folder to the `/wp-content/plugins/` directory, or install the ZIP through the WordPress Plugins screen.
-2. Activate CityWeather.
+1. Upload the `climnexa` folder to the `/wp-content/plugins/` directory, or install the ZIP through the WordPress Plugins screen.
+2. Activate Climnexa.
 3. Create an account at https://home.openweathermap.org/users/sign_up.
 4. Generate or copy an API key at https://home.openweathermap.org/api_keys.
 5. Go to Settings > Climnexa and save your API key.
@@ -64,6 +64,8 @@ When a visitor submits a weather search, the city and country code are sent to t
 A temporary pseudonymized value derived from the visitor's IP address is used for basic request rate limiting. This value is stored in a short-lived WordPress transient.
 
 Climnexa is an independent plugin and is not affiliated with or endorsed by OpenWeather.
+
+Geocoding results are cached for 30 days, current weather responses for 10 minutes, and rate-limiting data for 10 minutes. These temporary records expire automatically.
 
 OpenWeather is a third-party service. Its processing is subject to its own terms and privacy policy:
 https://openweather.co.uk/privacy-policy

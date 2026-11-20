@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param string $url API URL.
  * @return array|WP_Error
  */
-function cwwp_api_request( $url ) {
+function climnexa_api_request( $url ) {
 	$response = wp_safe_remote_get(
 		$url,
 		array(
@@ -21,7 +21,7 @@ function cwwp_api_request( $url ) {
 
 	if ( is_wp_error( $response ) ) {
 		return new WP_Error(
-			'cwwp_connection_error',
+			'climnexa_connection_error',
 			__( 'Could not connect to OpenWeather. Please try again later.', 'climnexa' )
 		);
 	}
@@ -38,7 +38,7 @@ function cwwp_api_request( $url ) {
 		}
 
 		return new WP_Error(
-			'cwwp_api_error',
+			'climnexa_api_error',
 			$message,
 			array( 'status' => $status_code )
 		);
@@ -46,7 +46,7 @@ function cwwp_api_request( $url ) {
 
 	if ( JSON_ERROR_NONE !== json_last_error() || ! is_array( $data ) ) {
 		return new WP_Error(
-			'cwwp_invalid_response',
+			'climnexa_invalid_response',
 			__( 'OpenWeather returned an invalid response.', 'climnexa' )
 		);
 	}
@@ -61,12 +61,12 @@ function cwwp_api_request( $url ) {
  * @param string $country Two-letter country code.
  * @return array|WP_Error
  */
-function cwwp_get_coordinates( $city, $country ) {
-	$api_key = (string) get_option( 'cwwp_api_key', '' );
+function climnexa_get_coordinates( $city, $country ) {
+	$api_key = (string) get_option( 'climnexa_api_key', '' );
 
 	if ( '' === $api_key ) {
 		return new WP_Error(
-			'cwwp_missing_api_key',
+			'climnexa_missing_api_key',
 			__( 'The site administrator needs to add an OpenWeather API key in Settings > Climnexa.', 'climnexa' )
 		);
 	}
@@ -80,12 +80,12 @@ function cwwp_get_coordinates( $city, $country ) {
 		! preg_match( '/^[A-Z]{2}$/', $country )
 	) {
 		return new WP_Error(
-			'cwwp_invalid_location',
+			'climnexa_invalid_location',
 			__( 'Enter a valid city name and a two-letter country code.', 'climnexa' )
 		);
 	}
 
-	$cache_key   = 'cwwp_geo_' . md5( strtolower( $city . '|' . $country ) );
+	$cache_key   = 'climnexa_geo_' . md5( strtolower( $city . '|' . $country ) );
 	$coordinates = get_transient( $cache_key );
 
 	if (
@@ -110,7 +110,7 @@ function cwwp_get_coordinates( $city, $country ) {
 		'https://api.openweathermap.org/geo/1.0/direct'
 	);
 
-	$result = cwwp_api_request( $url );
+	$result = climnexa_api_request( $url );
 
 	if ( is_wp_error( $result ) ) {
 		return $result;
@@ -135,7 +135,7 @@ function cwwp_get_coordinates( $city, $country ) {
 		! is_string( $result[0]['country'] )
 	) {
 		return new WP_Error(
-			'cwwp_city_not_found',
+			'climnexa_city_not_found',
 			__( 'City not found. Check the city name and country code.', 'climnexa' )
 		);
 	}
@@ -159,23 +159,23 @@ function cwwp_get_coordinates( $city, $country ) {
  * @param string $country Two-letter country code.
  * @return array|WP_Error
  */
-function cwwp_get_current_weather( $city, $country ) {
-	$api_key = (string) get_option( 'cwwp_api_key', '' );
+function climnexa_get_current_weather( $city, $country ) {
+	$api_key = (string) get_option( 'climnexa_api_key', '' );
 
 	if ( '' === $api_key ) {
 		return new WP_Error(
-			'cwwp_missing_api_key',
+			'climnexa_missing_api_key',
 			__( 'The site administrator needs to add an OpenWeather API key in Settings > Climnexa.', 'climnexa' )
 		);
 	}
 
-	$location = cwwp_get_coordinates( $city, $country );
+	$location = climnexa_get_coordinates( $city, $country );
 
 	if ( is_wp_error( $location ) ) {
 		return $location;
 	}
 
-	$cache_key = 'cwwp_weather_' . md5( $location['lat'] . '|' . $location['lon'] );
+	$cache_key = 'climnexa_weather_' . md5( $location['lat'] . '|' . $location['lon'] );
 	$weather   = get_transient( $cache_key );
 
 	if ( is_array( $weather ) ) {
@@ -193,7 +193,7 @@ function cwwp_get_current_weather( $city, $country ) {
 		'https://api.openweathermap.org/data/2.5/weather'
 	);
 
-	$weather = cwwp_api_request( $url );
+	$weather = climnexa_api_request( $url );
 
 	if ( is_wp_error( $weather ) ) {
 		return $weather;
@@ -229,7 +229,7 @@ function cwwp_get_current_weather( $city, $country ) {
 		! is_string( $weather['sys']['country'] )
 	) {
 		return new WP_Error(
-			'cwwp_incomplete_weather',
+			'climnexa_incomplete_weather',
 			__( 'The weather data received from OpenWeather was incomplete.', 'climnexa' )
 		);
 	}
@@ -246,10 +246,10 @@ function cwwp_get_current_weather( $city, $country ) {
  *
  * @return true|WP_Error
  */
-function cwwp_check_rate_limit() {
+function climnexa_check_rate_limit() {
 	if ( empty( $_SERVER['REMOTE_ADDR'] ) ) {
 		return new WP_Error(
-			'cwwp_rate_limit_unavailable',
+			'climnexa_rate_limit_unavailable',
 			__( 'The request could not be verified. Please try again.', 'climnexa' )
 		);
 	}
@@ -258,19 +258,19 @@ function cwwp_check_rate_limit() {
 
 	if ( ! filter_var( $ip, FILTER_VALIDATE_IP ) ) {
 		return new WP_Error(
-			'cwwp_rate_limit_unavailable',
+			'climnexa_rate_limit_unavailable',
 			__( 'The request could not be verified. Please try again.', 'climnexa' )
 		);
 	}
 
 	$ip = wp_privacy_anonymize_ip( $ip );
 
-	$transient_key = 'cwwp_rate_' . hash_hmac( 'sha256', $ip, wp_salt( 'auth' ) );
+	$transient_key = 'climnexa_rate_' . hash_hmac( 'sha256', $ip, wp_salt( 'auth' ) );
 	$count         = (int) get_transient( $transient_key );
 
 	if ( $count >= 10 ) {
 		return new WP_Error(
-			'cwwp_rate_limit',
+			'climnexa_rate_limit',
 			__( 'Too many requests. Please wait a few minutes and try again.', 'climnexa' )
 		);
 	}
@@ -286,18 +286,18 @@ function cwwp_check_rate_limit() {
  * @param WP_Error $error Request error.
  * @return int
  */
-function cwwp_get_error_status( $error ) {
+function climnexa_get_error_status( $error ) {
 	$error_code = $error->get_error_code();
 
-	if ( 'cwwp_invalid_location' === $error_code ) {
+	if ( 'climnexa_invalid_location' === $error_code ) {
 		return 400;
 	}
 
-	if ( 'cwwp_city_not_found' === $error_code ) {
+	if ( 'climnexa_city_not_found' === $error_code ) {
 		return 404;
 	}
 
-	if ( 'cwwp_missing_api_key' === $error_code ) {
+	if ( 'climnexa_missing_api_key' === $error_code ) {
 		return 503;
 	}
 
@@ -307,8 +307,8 @@ function cwwp_get_error_status( $error ) {
 /**
  * Handle the public AJAX weather request.
  */
-function cwwp_ajax_get_weather() {
-	check_ajax_referer( 'cwwp_weather_nonce', 'nonce' );
+function climnexa_ajax_get_weather() {
+	check_ajax_referer( 'climnexa_weather_nonce', 'nonce' );
 
 	$city    = isset( $_POST['city'] ) ? sanitize_text_field( wp_unslash( $_POST['city'] ) ) : '';
 	$country = isset( $_POST['country'] ) ? strtoupper( sanitize_text_field( wp_unslash( $_POST['country'] ) ) ) : '';
@@ -326,7 +326,7 @@ function cwwp_ajax_get_weather() {
 		);
 	}
 
-	$rate_limit = cwwp_check_rate_limit();
+	$rate_limit = climnexa_check_rate_limit();
 
 	if ( is_wp_error( $rate_limit ) ) {
 		wp_send_json_error(
@@ -335,12 +335,12 @@ function cwwp_ajax_get_weather() {
 		);
 	}
 
-	$weather = cwwp_get_current_weather( $city, $country );
+	$weather = climnexa_get_current_weather( $city, $country );
 
 	if ( is_wp_error( $weather ) ) {
 		wp_send_json_error(
 			array( 'message' => $weather->get_error_message() ),
-			cwwp_get_error_status( $weather )
+			climnexa_get_error_status( $weather )
 		);
 	}
 
@@ -372,5 +372,5 @@ function cwwp_ajax_get_weather() {
 
 	wp_send_json_success( $data );
 }
-add_action( 'wp_ajax_cwwp_get_weather', 'cwwp_ajax_get_weather' );
-add_action( 'wp_ajax_nopriv_cwwp_get_weather', 'cwwp_ajax_get_weather' );
+add_action( 'wp_ajax_climnexa_get_weather', 'climnexa_ajax_get_weather' );
+add_action( 'wp_ajax_nopriv_climnexa_get_weather', 'climnexa_ajax_get_weather' );

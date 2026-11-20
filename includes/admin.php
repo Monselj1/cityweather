@@ -6,16 +6,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Add the plugin settings page.
  */
-function cwwp_add_settings_page() {
+function climnexa_add_settings_page() {
 	add_options_page(
 		__( 'Climnexa Settings', 'climnexa' ),
 		__( 'Climnexa', 'climnexa' ),
 		'manage_options',
 		'climnexa',
-		'cwwp_render_settings_page'
+		'climnexa_render_settings_page'
 	);
 }
-add_action( 'admin_menu', 'cwwp_add_settings_page' );
+add_action( 'admin_menu', 'climnexa_add_settings_page' );
 
 /**
  * Preserve the saved API key when the settings field is left blank.
@@ -23,11 +23,11 @@ add_action( 'admin_menu', 'cwwp_add_settings_page' );
  * @param string $value Submitted API key.
  * @return string
  */
-function cwwp_sanitize_api_key( $value ) {
+function climnexa_sanitize_api_key( $value ) {
 	$value = trim( (string) $value );
 
 	if ( '' === $value ) {
-		return (string) get_option( 'cwwp_api_key', '' );
+		return (string) get_option( 'climnexa_api_key', '' );
 	}
 
 	return sanitize_text_field( $value );
@@ -36,52 +36,51 @@ function cwwp_sanitize_api_key( $value ) {
 /**
  * Register plugin settings.
  */
-function cwwp_register_settings() {
+function climnexa_register_settings() {
 	register_setting(
-		'cwwp_settings_group',
-		'cwwp_api_key',
+		'climnexa_settings_group',
+		'climnexa_api_key',
 		array(
 			'type'              => 'string',
-			'sanitize_callback' => 'cwwp_sanitize_api_key',
+			'sanitize_callback' => 'climnexa_sanitize_api_key',
 			'default'           => '',
 		)
 	);
 
 	add_settings_section(
-		'cwwp_api_section',
+		'climnexa_api_section',
 		__( 'OpenWeather API settings', 'climnexa' ),
-		'cwwp_render_api_section_description',
+		'climnexa_render_api_section_description',
 		'climnexa'
 	);
 
 	add_settings_field(
-		'cwwp_api_key',
+		'climnexa_api_key',
 		__( 'API key', 'climnexa' ),
-		'cwwp_render_api_key_field',
+		'climnexa_render_api_key_field',
 		'climnexa',
-		'cwwp_api_section'
+		'climnexa_api_section'
 	);
 }
-add_action( 'admin_init', 'cwwp_register_settings' );
+add_action( 'admin_init', 'climnexa_register_settings' );
 
 /**
  * Render the API section description.
  */
-function cwwp_render_api_section_description() {
+function climnexa_render_api_section_description() {
 	echo '<p>' . esc_html__( 'Add your OpenWeather API key to enable weather searches.', 'climnexa' ) . '</p>';
 }
-
 
 /**
  * Render the API key field without printing the saved secret into the page.
  */
-function cwwp_render_api_key_field() {
-	$has_key = '' !== (string) get_option( 'cwwp_api_key', '' );
+function climnexa_render_api_key_field() {
+	$has_key = '' !== (string) get_option( 'climnexa_api_key', '' );
 	?>
 	<input
 		type="password"
-		name="cwwp_api_key"
-		id="cwwp_api_key"
+		name="climnexa_api_key"
+		id="climnexa_api_key"
 		value=""
 		class="regular-text"
 		autocomplete="new-password"
@@ -105,7 +104,7 @@ function cwwp_render_api_key_field() {
 /**
  * Render the settings page.
  */
-function cwwp_render_settings_page() {
+function climnexa_render_settings_page() {
 	if ( ! current_user_can( 'manage_options' ) ) {
 		return;
 	}
@@ -115,7 +114,7 @@ function cwwp_render_settings_page() {
 
 		<form method="post" action="options.php">
 			<?php
-			settings_fields( 'cwwp_settings_group' );
+			settings_fields( 'climnexa_settings_group' );
 			do_settings_sections( 'climnexa' );
 			submit_button( __( 'Save settings', 'climnexa' ) );
 			?>

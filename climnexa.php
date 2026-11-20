@@ -16,60 +16,43 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'CWWP_VERSION', '1.0.0' );
-define( 'CWWP_FILE', __FILE__ );
-define( 'CWWP_PATH', plugin_dir_path( __FILE__ ) );
-define( 'CWWP_URL', plugin_dir_url( __FILE__ ) );
+define( 'CLIMNEXA_VERSION', '1.0.0' );
+define( 'CLIMNEXA_FILE', __FILE__ );
+define( 'CLIMNEXA_PATH', plugin_dir_path( __FILE__ ) );
+define( 'CLIMNEXA_URL', plugin_dir_url( __FILE__ ) );
 
-require_once CWWP_PATH . 'includes/admin.php';
-require_once CWWP_PATH . 'includes/api.php';
-
-/**
- * Preserve the API key when upgrading from the original Mi Clima plugin.
- */
-function cwwp_activate_plugin() {
-	if ( '' === (string) get_option( 'cwwp_api_key', '' ) ) {
-		$legacy_api_key = (string) get_option( 'mi_clima_api_key', '' );
-
-		if ( '' !== $legacy_api_key ) {
-			update_option(
-				'cwwp_api_key',
-				sanitize_text_field( $legacy_api_key )
-			);
-		}
-	}
-}
-register_activation_hook( CWWP_FILE, 'cwwp_activate_plugin' );
+require_once CLIMNEXA_PATH . 'includes/admin.php';
+require_once CLIMNEXA_PATH . 'includes/api.php';
 
 /**
  * Enqueue frontend assets only when the shortcode is used.
  */
-function cwwp_enqueue_frontend_assets() {
-	$css_path = CWWP_PATH . 'assets/css/style.css';
-	$js_path  = CWWP_PATH . 'assets/js/script.js';
+function climnexa_enqueue_frontend_assets() {
+	$css_path = CLIMNEXA_PATH . 'assets/css/style.css';
+	$js_path  = CLIMNEXA_PATH . 'assets/js/script.js';
 
 	wp_enqueue_style(
 		'climnexa',
-		CWWP_URL . 'assets/css/style.css',
+		CLIMNEXA_URL . 'assets/css/style.css',
 		array(),
-		file_exists( $css_path ) ? filemtime( $css_path ) : CWWP_VERSION
+		file_exists( $css_path ) ? filemtime( $css_path ) : CLIMNEXA_VERSION
 	);
 
 	wp_enqueue_script(
 		'climnexa',
-		CWWP_URL . 'assets/js/script.js',
+		CLIMNEXA_URL . 'assets/js/script.js',
 		array(),
-		file_exists( $js_path ) ? filemtime( $js_path ) : CWWP_VERSION,
+		file_exists( $js_path ) ? filemtime( $js_path ) : CLIMNEXA_VERSION,
 		true
 	);
 
 	wp_localize_script(
 		'climnexa',
-		'cityWeather',
+		'climnexaWeather',
 		array(
 			'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
-			'nonce'       => wp_create_nonce( 'cwwp_weather_nonce' ),
-			'iconBaseUrl' => trailingslashit( CWWP_URL . 'assets/icons' ),
+			'nonce'       => wp_create_nonce( 'climnexa_weather_nonce' ),
+			'iconBaseUrl' => trailingslashit( CLIMNEXA_URL . 'assets/icons' ),
 			'i18n'        => array(
 				'loading'          => __( 'Loading weather...', 'climnexa' ),
 				'searching'        => __( 'Searching...', 'climnexa' ),
@@ -97,16 +80,16 @@ function cwwp_enqueue_frontend_assets() {
  *
  * @return string
  */
-function cwwp_weather_shortcode() {
-	cwwp_enqueue_frontend_assets();
+function climnexa_weather_shortcode() {
+	climnexa_enqueue_frontend_assets();
 
-	$instance_id = wp_unique_id( 'cwwp-' );
+	$instance_id = wp_unique_id( 'climnexa-' );
 
 	ob_start();
 	?>
-	<div class="cwwp-container">
-		<form class="cwwp-form" data-cwwp-form="<?php echo esc_attr( $instance_id ); ?>">
-			<div class="cwwp-field">
+	<div class="climnexa-container">
+		<form class="climnexa-form" data-climnexa-form="<?php echo esc_attr( $instance_id ); ?>">
+			<div class="climnexa-field">
 				<label for="<?php echo esc_attr( $instance_id ); ?>-city">
 					<?php esc_html_e( 'City', 'climnexa' ); ?>
 				</label>
@@ -120,7 +103,7 @@ function cwwp_weather_shortcode() {
 				>
 			</div>
 
-			<div class="cwwp-field">
+			<div class="climnexa-field">
 				<label for="<?php echo esc_attr( $instance_id ); ?>-country">
 					<?php esc_html_e( 'Country code (2 letters)', 'climnexa' ); ?>
 				</label>
@@ -142,18 +125,18 @@ function cwwp_weather_shortcode() {
 			</button>
 		</form>
 
-		<div class="cwwp-result" aria-live="polite" aria-atomic="true"></div>
+		<div class="climnexa-result" aria-live="polite" aria-atomic="true"></div>
 	</div>
 	<?php
 
 	return ob_get_clean();
 }
-add_shortcode( 'climnexa', 'cwwp_weather_shortcode' );
+add_shortcode( 'climnexa', 'climnexa_weather_shortcode' );
 
 /**
  * Add suggested privacy policy text.
  */
-function cwwp_add_privacy_policy_content() {
+function climnexa_add_privacy_policy_content() {
 	if ( function_exists( 'wp_add_privacy_policy_content' ) ) {
 		$content = '<p>' .
 			esc_html__(
@@ -168,4 +151,4 @@ function cwwp_add_privacy_policy_content() {
 		);
 	}
 }
-add_action( 'admin_init', 'cwwp_add_privacy_policy_content' );
+add_action( 'admin_init', 'climnexa_add_privacy_policy_content' );

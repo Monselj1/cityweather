@@ -2,13 +2,13 @@ document.addEventListener('DOMContentLoaded', function () {
     'use strict';
 
     if (
-        typeof cityWeather === 'undefined' ||
-        !cityWeather.i18n
+        typeof climnexaWeather === 'undefined' ||
+        !climnexaWeather.i18n
     ) {
         return;
     }
 
-    const i18n = cityWeather.i18n;
+    const i18n = climnexaWeather.i18n;
 
     /**
      * Get a translated string with a fallback.
@@ -111,31 +111,31 @@ function getWeatherIcon(condition, description) {
     ).toLowerCase();
 
     if (weatherCondition === 'clear') {
-        return 'soleado.svg';
+        return 'sunny.svg';
     }
 
     if (weatherCondition === 'clouds') {
         if (weatherDescription.includes('few clouds')) {
-            return 'parcialmente-nublado.svg';
+            return 'partly-cloudy.svg';
         }
 
-        return 'nublado.svg';
+        return 'cloudy.svg';
     }
 
     if (weatherCondition === 'drizzle') {
-        return 'llovizna.svg';
+        return 'drizzle.svg';
     }
 
     if (weatherCondition === 'rain') {
-        return 'lluvia.svg';
+        return 'rain.svg';
     }
 
     if (weatherCondition === 'thunderstorm') {
-        return 'tormenta-electrica.svg';
+        return 'thunderstorm.svg';
     }
 
     if (weatherCondition === 'snow') {
-        return 'nieve.svg';
+        return 'snow.svg';
     }
 
     const atmosphericConditions = [
@@ -152,10 +152,10 @@ function getWeatherIcon(condition, description) {
     ];
 
     if (atmosphericConditions.includes(weatherCondition)) {
-        return 'niebla.svg';
+        return 'fog.svg';
     }
 
-    return 'nublado.svg';
+    return 'cloudy.svg';
 }
 
 
@@ -171,7 +171,7 @@ function getWeatherIcon(condition, description) {
 
         const button = element(
             'button',
-            'cwwp-unit-button' + (active ? ' is-active' : ''),
+            'climnexa-unit-button' + (active ? ' is-active' : ''),
             '°' + unit
         );
 
@@ -203,7 +203,7 @@ function getWeatherIcon(condition, description) {
             throw new Error(getText('connection', 'Unable to load weather data.'));
         }
 
-        const card = element('section', 'cwwp-weather-card');
+        const card = element('section', 'climnexa-weather-card');
 
         const condition = (
             typeof weather.condition === 'string'
@@ -220,11 +220,11 @@ function getWeatherIcon(condition, description) {
                 condition === 'haze' ? 'mist'
             : 'clouds';
 
-        card.classList.add('cwwp-' + theme);
+        card.classList.add('climnexa-' + theme);
 
         // Location and temperature selector.
-        const top = element('div', 'cwwp-card-top');
-        const locationGroup = element('div', 'cwwp-location-group');
+        const top = element('div', 'climnexa-card-top');
+        const locationGroup = element('div', 'climnexa-location-group');
 
         const city = typeof weather.city === 'string'
             ? weather.city
@@ -237,14 +237,14 @@ function getWeatherIcon(condition, description) {
         locationGroup.appendChild(
             element(
                 'div',
-                'cwwp-location',
+                'climnexa-location',
                 city + (country ? ', ' + country : '')
             )
         );
 
         const localTime = element(
             'time',
-            'cwwp-local-time',
+            'climnexa-local-time',
             typeof weather.local_time === 'string'
                 ? weather.local_time
                 : ''
@@ -252,7 +252,7 @@ function getWeatherIcon(condition, description) {
 
         locationGroup.appendChild(localTime);
 
-        const unitSelector = element('div', 'cwwp-unit-selector');
+        const unitSelector = element('div', 'climnexa-unit-selector');
 
         unitSelector.setAttribute('role', 'group');
         unitSelector.setAttribute(
@@ -272,14 +272,14 @@ function getWeatherIcon(condition, description) {
         card.appendChild(top);
 
         // Main temperature section.
-        const bottom = element('div', 'cwwp-card-bottom');
-        const temperatureGroup = element('div', 'cwwp-temperature-group');
+        const bottom = element('div', 'climnexa-card-bottom');
+        const temperatureGroup = element('div', 'climnexa-temperature-group');
 
         // Local weather SVG icon.
         const weatherIcon = document.createElement('img');
 
-        weatherIcon.className = 'cwwp-weather-icon';
-        weatherIcon.src = String(cityWeather.iconBaseUrl || '') +
+        weatherIcon.className = 'climnexa-weather-icon';
+        weatherIcon.src = String(climnexaWeather.iconBaseUrl || '') +
             getWeatherIcon(weather.condition, weather.description);
 
         weatherIcon.alt = typeof weather.description === 'string'
@@ -296,7 +296,7 @@ function getWeatherIcon(condition, description) {
         // Temperature.
         const temperature = element(
             'div',
-            'cwwp-temperature',
+            'climnexa-temperature',
             convertTemperature(weather.temperature, 'C') + '°C'
         );
 
@@ -304,11 +304,11 @@ function getWeatherIcon(condition, description) {
         bottom.appendChild(temperatureGroup);
 
         // Weather description and feels-like temperature.
-        const summary = element('div', 'cwwp-summary');
+        const summary = element('div', 'climnexa-summary');
 
         const description = element(
             'div',
-            'cwwp-description',
+            'climnexa-description',
             typeof weather.description === 'string'
                 ? weather.description
                 : ''
@@ -316,7 +316,7 @@ function getWeatherIcon(condition, description) {
 
         const feelsLike = element(
             'div',
-            'cwwp-feels-like',
+            'climnexa-feels-like',
             getText('feelsLike', 'Feels like') + ' ' +
             convertTemperature(weather.feels_like, 'C') + '°C'
         );
@@ -328,7 +328,7 @@ function getWeatherIcon(condition, description) {
         card.appendChild(bottom);
 
         // Additional weather information.
-        const details = element('div', 'cwwp-details');
+        const details = element('div', 'climnexa-details');
 
         const humidity = Number(weather.humidity);
         const windSpeed = Number(weather.wind_speed);
@@ -354,14 +354,14 @@ function getWeatherIcon(condition, description) {
         ];
 
         items.forEach(function (item) {
-            const detail = element('div', 'cwwp-detail');
+            const detail = element('div', 'climnexa-detail');
 
             detail.appendChild(
-                element('span', 'cwwp-detail-label', item[0])
+                element('span', 'climnexa-detail-label', item[0])
             );
 
             detail.appendChild(
-                element('strong', 'cwwp-detail-value', item[1])
+                element('strong', 'climnexa-detail-value', item[1])
             );
 
             details.appendChild(detail);
@@ -373,7 +373,7 @@ function getWeatherIcon(condition, description) {
         card.appendChild(
             element(
                 'p',
-                'cwwp-updated',
+                'climnexa-updated',
                 getText('updated', 'Updated') + ': ' +
                 (
                     typeof weather.updated_at === 'string'
@@ -422,13 +422,13 @@ function getWeatherIcon(condition, description) {
     }
 
     // Initialize all weather search forms.
-    const forms = document.querySelectorAll('.cwwp-form');
+    const forms = document.querySelectorAll('.climnexa-form');
 
     forms.forEach(function (form) {
-        const container = form.closest('.cwwp-container');
+        const container = form.closest('.climnexa-container');
 
         const result = container
-            ? container.querySelector('.cwwp-result')
+            ? container.querySelector('.climnexa-result')
             : null;
 
         const cityInput = form.querySelector('input[name="city"]');
@@ -462,12 +462,12 @@ function getWeatherIcon(condition, description) {
 
             const params = new URLSearchParams();
 
-            params.append('action', 'cwwp_get_weather');
-            params.append('nonce', cityWeather.nonce);
+            params.append('action', 'climnexa_get_weather');
+            params.append('nonce', climnexaWeather.nonce);
             params.append('city', city);
             params.append('country', country);
 
-            fetch(cityWeather.ajaxUrl, {
+            fetch(climnexaWeather.ajaxUrl, {
                 method: 'POST',
                 credentials: 'same-origin',
                 headers: {

@@ -2,7 +2,7 @@
    CLIMNEXA - MAIN STYLES
 ========================================= */
 
-.cwwp-container {
+.climnexa-container {
     width: 100%;
     max-width: 520px;
     margin: 24px auto;
@@ -11,9 +11,9 @@
     box-sizing: border-box;
 }
 
-.cwwp-container *,
-.cwwp-container *::before,
-.cwwp-container *::after {
+.climnexa-container *,
+.climnexa-container *::before,
+.climnexa-container *::after {
     box-sizing: border-box;
 }
 
@@ -21,7 +21,7 @@
    SEARCH FORM - LIGHT DESIGN
 ========================================= */
 
-.cwwp-form {
+.climnexa-form {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(130px, .65fr);
     gap: 14px;
@@ -32,7 +32,7 @@
     box-shadow: 0 8px 24px rgba(15, 23, 42, .06);
 }
 
-.cwwp-field label {
+.climnexa-field label {
     display: block;
     margin: 0 0 7px;
     color: #334155;
@@ -40,7 +40,7 @@
     font-weight: 600;
 }
 
-.cwwp-field input {
+.climnexa-field input {
     display: block;
     width: 100%;
     min-height: 44px;
@@ -53,17 +53,17 @@
     transition: border-color .2s, box-shadow .2s;
 }
 
-.cwwp-field input::placeholder {
+.climnexa-field input::placeholder {
     color: #94a3b8;
 }
 
-.cwwp-field input:focus {
+.climnexa-field input:focus {
     border-color: #54b9dc;
     outline: 2px solid rgba(84, 185, 220, .18);
     outline-offset: 1px;
 }
 
-.cwwp-form button {
+.climnexa-form button {
     grid-column: 1 / -1;
     min-height: 45px;
     padding: 11px 16px;
@@ -77,18 +77,18 @@
     transition: background .2s, transform .2s;
 }
 
-.cwwp-form button:hover {
+.climnexa-form button:hover {
     background: #1d4ed8;
     transform: translateY(-1px);
 }
 
-.cwwp-form button:disabled {
+.climnexa-form button:disabled {
     cursor: wait;
     opacity: .65;
     transform: none;
 }
 
-.cwwp-form button:focus-visible {
+.climnexa-form button:focus-visible {
     outline: 3px solid #54b9dc;
     outline-offset: 3px;
 }
@@ -97,11 +97,11 @@
    WEATHER RESULT
 ========================================= */
 
-.cwwp-result {
+.climnexa-result {
     margin-top: 20px;
 }
 
-.cwwp-result[aria-busy="true"] {
+.climnexa-result[aria-busy="true"] {
     opacity: .75;
 }
 
@@ -109,7 +109,7 @@
    MAIN WEATHER CARD
 ========================================= */
 
-.cwwp-weather-card {
+.climnexa-weather-card {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -129,7 +129,7 @@
    Dark upper section
 ========================================= */
 
-.cwwp-clear {
+.climnexa-clear {
     background:
         radial-gradient(
             circle at 82% 12%,
@@ -139,7 +139,7 @@
         linear-gradient(145deg, #193b56 0%, #122b43 55%, #0c1c2d 100%);
 }
 
-.cwwp-clouds {
+.climnexa-clouds {
     background:
         radial-gradient(
             ellipse at 75% 15%,
@@ -149,8 +149,8 @@
         linear-gradient(145deg, #263d53 0%, #172d43 55%, #0d1e30 100%);
 }
 
-.cwwp-rain,
-.cwwp-storm {
+.climnexa-rain,
+.climnexa-storm {
     background:
         radial-gradient(
             ellipse at 75% 10%,
@@ -160,7 +160,7 @@
         linear-gradient(145deg, #172c43 0%, #102237 55%, #091827 100%);
 }
 
-.cwwp-snow {
+.climnexa-snow {
     background:
         radial-gradient(
             ellipse at 75% 12%,
@@ -170,7 +170,7 @@
         linear-gradient(145deg, #29445c 0%, #193249 55%, #102438 100%);
 }
 
-.cwwp-mist {
+.climnexa-mist {
     background:
         radial-gradient(
             ellipse at 75% 15%,
@@ -184,7 +184,7 @@
    TOP SECTION
 ========================================= */
 
-.cwwp-card-top {
+.climnexa-card-top {
     position: relative;
     display: flex;
     align-items: flex-start;
@@ -193,11 +193,11 @@
     padding: 24px 24px 0;
 }
 
-.cwwp-location-group {
+.climnexa-location-group {
     min-width: 0;
 }
 
-.cwwp-location {
+.climnexa-location {
     max-width: 100%;
     overflow-wrap: anywhere;
     color: #f1f7fc;
@@ -206,7 +206,7 @@
     letter-spacing: .1px;
 }
 
-.cwwp-local-time {
+.climnexa-local-time {
     display: block;
     margin-top: 5px;
     color: #a9bdcf;
@@ -217,7 +217,7 @@
    CELSIUS / FAHRENHEIT SELECTOR
 ========================================= */
 
-.cwwp-unit-selector {
+.climnexa-unit-selector {
     display: inline-flex;
     flex: 0 0 auto;
     gap: 3px;
@@ -227,7 +227,7 @@
     background: rgba(5, 20, 34, .42);
 }
 
-.cwwp-unit-button {
+.climnexa-unit-button {
     min-width: 38px;
     min-height: 32px;
     padding: 5px 8px;
@@ -242,18 +242,18 @@
     transition: background .2s, color .2s;
 }
 
-.cwwp-unit-button:hover {
+.climnexa-unit-button:hover {
     background: rgba(130, 195, 222, .12);
     color: #ffffff;
 }
 
-.cwwp-unit-button.is-active {
+.climnexa-unit-button.is-active {
     background: #f4c95d;
     color: #172033;
     box-shadow: 0 2px 7px rgba(0, 0, 0, .15);
 }
 
-.cwwp-unit-button:focus-visible {
+.climnexa-unit-button:focus-visible {
     outline: 2px solid #ffffff;
     outline-offset: 2px;
 }
@@ -262,14 +262,14 @@
    WEATHER ICON
 ========================================= */
 
-.cwwp-temperature-group {
+.climnexa-temperature-group {
     display: flex;
     align-items: center;
     gap: 8px;
     min-width: 0;
 }
 
-.cwwp-weather-icon {
+.climnexa-weather-icon {
     display: block;
     flex: 0 0 auto;
     width: 105px;
@@ -281,7 +281,7 @@
    MAIN TEMPERATURE
 ========================================= */
 
-.cwwp-card-bottom {
+.climnexa-card-bottom {
     position: relative;
     display: flex;
     align-items: flex-end;
@@ -290,7 +290,7 @@
     padding: 30px 24px 26px;
 }
 
-.cwwp-temperature {
+.climnexa-temperature {
     flex: 0 0 auto;
     color: #ffffff;
     font-size: clamp(58px, 13vw, 78px);
@@ -300,13 +300,13 @@
     white-space: nowrap;
 }
 
-.cwwp-summary {
+.climnexa-summary {
     max-width: 55%;
     padding-bottom: 5px;
     text-align: right;
 }
 
-.cwwp-description {
+.climnexa-description {
     color: #e9f3fa;
     font-size: 16px;
     font-weight: 600;
@@ -314,7 +314,7 @@
     text-transform: capitalize;
 }
 
-.cwwp-feels-like {
+.climnexa-feels-like {
     margin-top: 7px;
     color: #a9c5d9;
     font-size: 13px;
@@ -324,7 +324,7 @@
    WEATHER DETAILS - LIGHT SECTION
 ========================================= */
 
-.cwwp-details {
+.climnexa-details {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 10px;
@@ -334,7 +334,7 @@
     background: #ffffff;
 }
 
-.cwwp-detail {
+.climnexa-detail {
     min-width: 0;
     padding: 12px 9px;
     border: 1px solid #edf1f5;
@@ -343,12 +343,12 @@
     transition: background .2s, border-color .2s;
 }
 
-.cwwp-detail:hover {
+.climnexa-detail:hover {
     border-color: #d7e9f3;
     background: #eef6fb;
 }
 
-.cwwp-detail-label {
+.climnexa-detail-label {
     display: block;
     min-height: 28px;
     margin-bottom: 5px;
@@ -357,7 +357,7 @@
     line-height: 1.3;
 }
 
-.cwwp-detail-value {
+.climnexa-detail-value {
     display: block;
     color: #172033;
     font-size: 13px;
@@ -365,7 +365,7 @@
     overflow-wrap: anywhere;
 }
 
-.cwwp-updated {
+.climnexa-updated {
     margin: 0;
     padding: 0 20px 16px;
     background: #ffffff;
@@ -380,92 +380,92 @@
 
 @media (max-width: 480px) {
 
-.cwwp-weather-icon {
+.climnexa-weather-icon {
     width: 78px;
     height: 78px;
 }
-    .cwwp-form {
+    .climnexa-form {
         grid-template-columns: 1fr;
         padding: 16px;
     }
 
-    .cwwp-card-top {
+    .climnexa-card-top {
         padding: 20px 16px 0;
     }
 
-    .cwwp-card-bottom {
+    .climnexa-card-bottom {
         gap: 10px;
         padding: 28px 16px 24px;
     }
 
-    .cwwp-location {
+    .climnexa-location {
         font-size: 14px;
     }
 
-    .cwwp-temperature {
+    .climnexa-temperature {
         font-size: clamp(52px, 15vw, 68px);
         letter-spacing: -3px;
     }
 
-    .cwwp-description {
+    .climnexa-description {
         font-size: 14px;
     }
 
-    .cwwp-feels-like {
+    .climnexa-feels-like {
         font-size: 12px;
     }
 
-    .cwwp-details {
+    .climnexa-details {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 9px;
         padding: 16px 16px 12px;
     }
 
-    .cwwp-detail {
+    .climnexa-detail {
         padding: 11px;
     }
 
-    .cwwp-detail-label {
+    .climnexa-detail-label {
         min-height: auto;
     }
 
-    .cwwp-updated {
+    .climnexa-updated {
         padding: 0 16px 14px;
     }
 }
 
 @media (max-width: 340px) {
 
-.cwwp-weather-icon {
+.climnexa-weather-icon {
     width: 62px;
     height: 62px;
 }
-    .cwwp-card-top {
+    .climnexa-card-top {
         gap: 6px;
     }
 
-    .cwwp-unit-button {
+    .climnexa-unit-button {
         min-width: 32px;
         padding: 5px;
     }
 
-    .cwwp-card-bottom {
+    .climnexa-card-bottom {
         gap: 8px;
     }
 
-    .cwwp-temperature {
+    .climnexa-temperature {
         font-size: 48px;
     }
 
-    .cwwp-summary {
+    .climnexa-summary {
         max-width: 52%;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .cwwp-container *,
-    .cwwp-container *::before,
-    .cwwp-container *::after {
+    .climnexa-container *,
+    .climnexa-container *::before,
+    .climnexa-container *::after {
         scroll-behavior: auto !important;
         transition-duration: 0.01ms !important;
         animation-duration: 0.01ms !important;
